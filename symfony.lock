@@ -93,6 +93,9 @@
     "php": {
         "version": "7.3"
     },
+    "php-imap/php-imap": {
+        "version": "4.1.0"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
