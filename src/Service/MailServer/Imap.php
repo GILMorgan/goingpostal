@@ -2,38 +2,57 @@
 
 namespace App\Service\MailServer;
 
+use App\Service\MailServer\Contract\GetMailBoxAdapter;
 
-class Imap
+/**
+ * Récupération des emails via IMAP
+ */
+class Imap implements GetMailBoxAdapter
 {
     /**
-     * @param Mailbox
+     * @var Mailbox
      */
     private $mailbox;
 
-    
-    public function __construct()
+    /**
+     * Constructeur
+     * 
+     * @param string $imapFolder
+     * @param string $userName
+     * @param string $password
+     */
+    public function __construct(
+        string $imapFolder,
+        string $userName,
+        string $password
+    )
     {
         $this->mailbox = new \PhpImap\Mailbox(
-            '{SSL0.OVH.NET/imap}INBOX', // IMAP server and mailbox folder
-            'unofficial@gilmorgan.net', // Username for the before configured mailbox
-            'mTDrFu44afFcEmtk40Ra', // Password for the before configured username
+            $imapFolder,
+            $userName,
+            $password,
             __DIR__, // Directory, where attachments will be saved (optional)
             'UTF-8' // Server encoding (optional)
-        );    
-
-        try {
-            // Get all emails (messages)
-            // PHP.net imap_search criteria: http://php.net/manual/en/function.imap-search.php
-            $mailsIds = $mailbox->searchMailbox('ALL');
-        } catch(PhpImap\Exceptions\ConnectionException $ex) {
-            echo "IMAP connection failed: ca a tout foiré" . $ex;
-            die();
-        }
-
-        //$mail = $mailbox->getMail($mailsIds[0]);
-
-        //PhpImap\IncomingMail
+        );
     }
 
+    /**
+     *  Retourne un tableau d'email et renvoir une exception si un probleme c'est produit
+     * 
+     * @return array
+     * 
+     * @throws \PhpImap\Exceptions\ConnectionException
+     */    
+    public function getAllMails(): array    
+    {
+        $mails = [];
+        $mailsIds = $this->mailbox->searchMailbox('ALL');
+        
+        foreach($mailsIds as $mailId) {
+            $mails[] = $this->mailbox->getMail($mailId);
+        }
+
+        return $mails;
+    }
 
 }
