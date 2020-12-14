@@ -86,7 +86,7 @@ class Mail
      */
     public function getFrom(): string
     {
-        return $this->subject;
+        return $this->from;
     }
 
     /**

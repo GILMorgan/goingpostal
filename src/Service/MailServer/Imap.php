@@ -2,6 +2,7 @@
 
 namespace App\Service\MailServer;
 
+use App\DataObject\Collection\Mails;
 use App\Service\MailServer\Contract\GetMailBoxAdapter;
 
 /**
@@ -16,7 +17,7 @@ class Imap implements GetMailBoxAdapter
 
     /**
      * Constructeur
-     * 
+     *
      * @param string $imapFolder
      * @param string $userName
      * @param string $password
@@ -37,19 +38,21 @@ class Imap implements GetMailBoxAdapter
     }
 
     /**
-     *  Retourne un tableau d'email et renvoir une exception si un probleme c'est produit
-     * 
-     * @return array
-     * 
+     *  Retourne une collection d'email et renvoir une exception si un probleme c'est produit
+     *
+     * @return Mails
+     *
      * @throws \PhpImap\Exceptions\ConnectionException
-     */    
-    public function getAllMails(): array    
+     */
+    public function getAllMails(): Mails
     {
-        $mails = [];
+        $mails = new Mails();
+        $imapMail = new ImapMail();
         $mailsIds = $this->mailbox->searchMailbox('ALL');
-        
+
         foreach($mailsIds as $mailId) {
-            $mails[] = $this->mailbox->getMail($mailId);
+            $mail = $imapMail->format($this->mailbox->getMail($mailId));
+            $mails->add($mail);
         }
 
         return $mails;
