@@ -15,6 +15,7 @@
         "mockery/mockery": "^1.4",
         "php-imap/php-imap": "^4.1",
         "phpdocumentor/reflection-docblock": "^5.2",
+        "ramsey/uuid-doctrine": "^1.6",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "5.2.*",
         "symfony/console": "5.2.*",

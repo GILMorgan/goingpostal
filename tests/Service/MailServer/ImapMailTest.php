@@ -2,9 +2,10 @@
 
 use App\DataObject\Mail;
 use App\Service\MailServer\ImapMail;
-use PhpImap\IncomingMail;
-use PHPUnit\Framework\TestCase;
 
+use PhpImap\IncomingMail;
+
+use PHPUnit\Framework\TestCase;
 
 class ImapMailTest extends TestCase
 {
