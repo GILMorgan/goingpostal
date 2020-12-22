@@ -15,12 +15,11 @@ class ImapMail
     */
    public function format(IncomingMail $incomingMail): Mail
    {
-       $mail = new Mail();
-       $mail->setDate(new \DateTime($incomingMail->date));
-       $mail->setSubject($incomingMail->header->subject);
-       $mail->setFrom($incomingMail->header->fromaddress);
-       $mail->setContent($incomingMail->textPlain);
-
-       return $mail;
+        return new Mail(
+            new \DateTime($incomingMail->date),
+            $incomingMail->subject,
+            $incomingMail->fromAddress,
+            $incomingMail->textPlain
+        );
    }
 }

@@ -23,6 +23,8 @@ class AddressBookRepository
     private $entityManager;
 
     /**
+     * Constructeur, injection des dépendances
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -32,6 +34,8 @@ class AddressBookRepository
     }
 
     /**
+     * Persiste une addresse en BDD
+     *
      * @param Address $address
      *
      * @return Address
@@ -59,5 +63,19 @@ class AddressBookRepository
                 'surnom' => 'ASC',
             ]
         );
+    }
+
+    /**
+     * Retourne les addresses correspondant a l'email
+     *
+     * @param string $email
+     *
+     * @return array
+     *
+     * @todo verifier s'il ne serait pas plus simple de renvoyer qu'une adresse, s'il ne peut y avoir deux adresses pour le même email
+     */
+    public function findByEmail(string $email): array
+    {
+        return $this->repository->findBy(['email' => $email]);
     }
 }
