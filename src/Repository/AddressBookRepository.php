@@ -70,12 +70,10 @@ class AddressBookRepository
      *
      * @param string $email
      *
-     * @return array
-     *
-     * @todo verifier s'il ne serait pas plus simple de renvoyer qu'une adresse, s'il ne peut y avoir deux adresses pour le même email
+     * @return Address|null
      */
-    public function findByEmail(string $email): array
+    public function findByEmail(string $email): ?Address
     {
-        return $this->repository->findBy(['email' => $email]);
+        return $this->repository->findOneBy(['email' => $email]);
     }
 }

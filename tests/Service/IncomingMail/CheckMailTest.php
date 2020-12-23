@@ -21,7 +21,7 @@ class CheckMailTest extends TestCase
 
         $filteredMails = $checkMail->filterMails($mails);
 
-        $this->assertSame($mails, $filteredMails);
+        $this->assertSame(0, count($filteredMails));
     }
 
     public function testGoodMailbox()
@@ -39,7 +39,7 @@ class CheckMailTest extends TestCase
 
         $filteredMails = $checkMail->filterMails($mails);
 
-        $this->assertSame($mails, $filteredMails);
+        $this->assertSame(1, count($filteredMails));
     }
 
     public function testWrongMailbox()

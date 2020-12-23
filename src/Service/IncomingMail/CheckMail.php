@@ -43,16 +43,18 @@ class CheckMail
      */
     public function filterMails(Mails $mails): Mails
     {
+        $filteredMails = new Mails();
+
         foreach ($mails as $mail) {
             if (
-                !$this->checkIfInAddressBook($mail)
-                || $this->checkIfAllreadyRead($mail)
+                $this->checkIfInAddressBook($mail)
+                && !$this->checkIfAllreadyRead($mail)
             ) {
-                $mails->remove($mail);
+                $filteredMails->add($mail);
             }
         }
 
-        return $mails;
+        return $filteredMails;
     }
 
     /**
