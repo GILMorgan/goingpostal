@@ -57,4 +57,12 @@ class EmailRepository
             ]
         );
     }
+
+    /**
+     * @todo limiter les résultats et les trier
+     */
+    public function findAll()
+    {
+        return $this->repository->findAll();
+    }
 }
