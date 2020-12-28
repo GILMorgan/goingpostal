@@ -15,7 +15,7 @@
             <p class="card-text row">
                 <span class="col-11">{{ mail.getSubject() }}</span>
                 <span class="col-1">
-                    <a href="">
+                    <a href="{{ url("message.show", {"emailId": mail.getId()}) }}">
                         <i class="fa fa-eye"></i>
                     </a>
                 </span>

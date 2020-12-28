@@ -6,6 +6,7 @@ use App\Entity\Email;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 /**
  * Repository des adresses
@@ -56,6 +57,26 @@ class EmailRepository
                 "date" => $date
             ]
         );
+    }
+
+    /**
+     * @param string $emailId
+     *
+     * @return Email
+     *
+     * @throws NotFoundResourceException
+     */
+    public function find(string $emailId): Email
+    {
+        $email = $this->repository->find($emailId);
+
+        if (!$email) {
+            throw new NotFoundResourceException(
+                sprintf("Unable to find email with id %s", $emailId)
+            );
+        }
+
+        return $email;
     }
 
     /**

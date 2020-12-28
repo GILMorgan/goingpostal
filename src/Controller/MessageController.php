@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Controller de la page d'accueil
+ * @Route("/message")
  */
-class IndexController extends AbstractController
+class MessageController extends AbstractController
 {
     /**
      * @var EmailRepository
@@ -27,18 +27,20 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/", name="index")
+     * @Route("/show/{emailId}", name="message.show")
+     *
+     * @param string $emailId
      *
      * @return Response
      */
-    public function index(): Response
+    public function displayMessage(string $emailId): Response
     {
-        $mails = $this->emailRepository->findAll();
+        $email = $this->emailRepository->find($emailId);
 
         return $this->render(
-            'index/index.html.twig',
+            'message/show.html.twig',
             [
-                "mails" => $mails
+                'email' => $email,
             ]
         );
     }
