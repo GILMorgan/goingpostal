@@ -9,7 +9,8 @@ use Ramsey\Uuid\Doctrine\UuidGenerator;
 /**
  * @ORM\Entity()
  */
-class Email
+
+class Draft
 {
     /**
      * @ORM\Id()
@@ -36,11 +37,11 @@ class Email
     private $subject;
 
     /**
-     * @ORM\Column(type="string", name="email_from")
+     * @ORM\Column(type="string", name="draft_to")
      *
-     * @var string|null $from
+     * @var string $to
      */
-    private $from;
+    private $to;
 
     /**
      * @ORM\Column(type="string")
@@ -48,6 +49,13 @@ class Email
      * @var string $content
      */
     private $content;
+
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @var bool $isPosted
+     */
+    private $isPosted;
 
     /**
      * @return string|null
@@ -100,19 +108,19 @@ class Email
     /**
      * @return string|null
      */
-    public function getFrom(): ?string
+    public function getTo(): ?string
     {
-        return $this->from;
+        return $this->to;
     }
 
     /**
-     * @param string $from
+     * @param string $to
      *
      * @return self
      */
-    public function setFrom(string $from): self
+    public function setTo(string $to): self
     {
-        $this->from = $from;
+        $this->to = $to;
 
         return $this;
     }
@@ -135,5 +143,25 @@ class Email
         $this->content = $content;
 
         return $this;
+    }
+
+    /**
+     * @param bool $isPosted
+     *
+     * @return self
+     */
+    public function setPosted(bool $isPosted): self
+    {
+        $this->isPosted = $isPosted;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPosted(): bool
+    {
+        return $this->isPosted;
     }
 }

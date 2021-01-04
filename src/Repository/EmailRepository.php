@@ -6,6 +6,7 @@ use App\Entity\Email;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 /**
@@ -48,6 +49,8 @@ class EmailRepository
     /**
      * @param string $email
      * @param \DateTime $date
+     *
+     * @return array
      */
     public function findByEmailAndDate(string $email, \DateTime $date)
     {
@@ -81,6 +84,8 @@ class EmailRepository
 
     /**
      * @todo limiter les résultats et les trier
+     *
+     * @return array
      */
     public function findAll()
     {
