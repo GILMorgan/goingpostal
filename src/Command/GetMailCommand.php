@@ -68,6 +68,8 @@ class GetMailCommand extends Command
      *
      * @param InputInterface $input
      * @param OutputInterface $output
+     *
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -78,7 +80,7 @@ class GetMailCommand extends Command
         $io->success(sprintf('%s mails ont été relevé', count($mails)));
 
         $mails = $this->checkMail->filterMails($mails);
-        
+
         $this->saveMail->persistMails($mails);
 
         $io->success(sprintf('%s mails ont été ajouté a la boite de reception', count($mails)));

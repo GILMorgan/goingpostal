@@ -60,10 +60,31 @@ class DraftRepository
      */
     public function findAllNotPosted(): array
     {
-        return $this->repository->findAll(
-            ['isPosted' => false],
-            ['date' => 'ASC']
+        $query = $this->entityManager->createQuery(
+            "SELECT d
+            FROM App\Entity\Draft d
+            WHERE d.isPosted = 0
+            ORDER BY d.date ASC"
         );
+
+        return $query->getResult();
+    }
+
+    /**
+     * Retourne tout les brouillons postés
+     *
+     * @return array
+     */
+    public function findAllPosted(): array
+    {
+        $query = $this->entityManager->createQuery(
+            "SELECT d
+            FROM App\Entity\Draft d
+            WHERE d.isPosted = 1
+            ORDER BY d.date ASC"
+        );
+
+        return $query->getResult();
     }
 
     /**
@@ -77,5 +98,14 @@ class DraftRepository
         $this->entityManager->flush();
 
         return $draft;
+    }
+
+    /**
+     * @param Draft $draft
+     */
+    public function delete(Draft $draft)
+    {
+        $this->entityManager->remove($draft);
+        $this->entityManager->flush();
     }
 }
