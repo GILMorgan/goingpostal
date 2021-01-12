@@ -76,4 +76,21 @@ class AddressBookRepository
     {
         return $this->repository->findOneBy(['email' => $email]);
     }
+
+    /**
+     * @param string $searchString
+     *
+     * @return array
+     */
+    public function search(string $searchString): array
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder
+            ->select('a')
+            ->from(Address::class, 'a')
+            ->where('a.nom LIKE :searchString')
+            ->setParameter('searchString', '%' . $searchString . '%');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

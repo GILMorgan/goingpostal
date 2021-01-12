@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use AddressSearchHydrator;
 use App\Repository\AddressBookRepository;
 use App\Service\AddressBook\AddressEntry;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -76,6 +78,24 @@ class AddressBookController extends AbstractController
             [
 
             ]
+        );
+    }
+
+    /**
+     * @Route("/search", name="address_book.search")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function search(Request $request): JsonResponse
+    {
+        $searchString = $request->query->get("q");
+        $searchResults = $this->addressBookRepository->search($searchString);
+        $hydrator = new AddressSearchHydrator($searchResults);
+
+        return new JsonResponse(
+            $hydrator->toArray()
         );
     }
 }
