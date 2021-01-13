@@ -29,5 +29,6 @@
     </div>
 
     <button class="btn btn-primary" data-action="save" data-route="{{ url('draft.update', {draftId: draft.getId()}) }}">Enregistrer</button>
+    <a class="btn btn-primary" href="{{ url('draft.post', {draftId: draft.getId()}) }}">Poster</a>
 </div>
 {% endblock %}

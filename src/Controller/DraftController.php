@@ -7,6 +7,7 @@ use App\Repository\DraftRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -132,5 +133,25 @@ class DraftController extends AbstractController
                 'draftId' => $draft->getId(),
             ]
         );
+    }
+
+    /**
+     * @Route("/post/{draftId}", name="draft.post")
+     *
+     * @param string $draftId
+     *
+     * @return RedirectResponse
+     */
+    public function sendToPostBox(string $draftId): RedirectResponse
+    {
+        $draft = $this->draftRepository->find($draftId);
+
+        $draft
+            ->setPosted(true)
+            ->setPostedAt(new \DateTime());
+
+        $this->draftRepository->save($draft);
+
+        return $this->redirectToRoute("draft.list_all");
     }
 }

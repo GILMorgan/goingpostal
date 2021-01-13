@@ -1,7 +1,9 @@
 <?php
 
+namespace App\Hydrator;
+
 /**
- * 
+ * Hydrateur de la recherche des adresses
  */
 class AddressSearchHydrator
 {

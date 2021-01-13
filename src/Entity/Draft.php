@@ -58,6 +58,13 @@ class Draft
     private $isPosted;
 
     /**
+     * @ORM\Column(type="date", nullable=true)
+     *
+     * @var \DateTime $postedAt
+     */
+    private $postedAt;
+
+    /**
      * @return string|null
      */
     public function getId(): ?string
@@ -163,5 +170,25 @@ class Draft
     public function isPosted(): bool
     {
         return $this->isPosted;
+    }
+
+    /**
+     * @param \DateTime $postedAt
+     *
+     * @return self
+     */
+    public function setPostedAt(\DateTime $postedAt): self
+    {
+        $this->postedAt = $postedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getPostedAt(): ?\DateTime
+    {
+        return $this->postedAt;
     }
 }
