@@ -3,6 +3,7 @@
 namespace App\Service\MailServer;
 
 use App\Entity\Draft;
+use App\Service\MailFormater\FormalStyle;
 
 /**
  * Formatage et envoi du message
@@ -15,11 +16,21 @@ class SendMail
     private $mailer;
 
     /**
-     * @param Swift_Mailer $swift_Mailer
+     * @var FormalStyle
      */
-    public function __construct(\Swift_Mailer $swift_Mailer)
+    private $mailFormater;
+
+    /**
+     * @param Swift_Mailer $swift_Mailer
+     * @param FormalStyle $formalStyle
+     */
+    public function __construct(
+        \Swift_Mailer $swift_Mailer,
+        FormalStyle $formalStyle
+    )
     {
         $this->mailer = $swift_Mailer;
+        $this->formalStyle = $formalStyle;
     }
 
     /**
@@ -33,7 +44,7 @@ class SendMail
             ->setFrom('unofficial@gilmorgan.net')
             ->setTo($draft->getTo())
             ->setBody(
-                $draft->getContent(),
+                $this->formalStyle->formatDraft($draft),
                 'text/html'
             );
 

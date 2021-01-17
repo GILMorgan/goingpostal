@@ -88,6 +88,24 @@ class DraftRepository
     }
 
     /**
+     * @param \DateTime $postedDate
+     *
+     * @return array
+     */
+    public function findAllPostable(\DateTime $postedDate): array
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder
+            ->select('d')
+            ->from(Draft::class, 'd')
+            ->where('d.isPosted = 0')
+            ->andWhere('d.postedAt < :postedDate')
+            ->setParameter('postedDate', $postedDate);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
      * @param Draft $draft
      *
      * @return Draft
