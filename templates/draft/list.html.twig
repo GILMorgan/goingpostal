@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Brouillons
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <a href="{{ url('draft.new') }}" class="btn btn-primary">Nouveau brouillon</a>
+    </div>
+    {% for draft in drafts %}
+    <div class="card">
+        <div class="card-body">
+            <span class="card-title">{{ draft.date().format("d/m/Y") }} - {{ draft.getTo() }}</span>
+            <p class="card-text row">
+                <span class="col-11">{{ draft.getSubject() }}</span>
+                <span class="col-1">
+                    <a href="{{ url('draft.edit', {draftId: draft.getId()}) }}">
+                        <i class="fa fa-pen"></i>
+                    </a>
+                </span>
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

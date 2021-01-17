@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carnet d'adresses{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <a href="{{ url('address_book.add') }}" class="col-1 btn btn-primary">
+            <i class="far fa-plus"></i>
+            Ajouter
+        </a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Surnom</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for address in addresses %}
+            <tr>
+                <td>{{ address.getNom() }}</td>
+                <td>{{ address.getPrenom() }}</td>
+                <td>{{ address.getSurnom() }}</td>
+                <td>{{ address.getEmail() }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

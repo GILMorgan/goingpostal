@@ -2,6 +2,7 @@
 
 namespace App\Service\MailServer;
 
+use App\DataObject\Collection\Mails;
 use App\Service\MailServer\Contract\GetMailBoxAdapter;
 
 /**
@@ -18,15 +19,17 @@ class Mailbox
     /**
      * @param GetMailBoxAdapter $getMailBoxAdapter
      */
-    public function __construct(GetMailBoxAdapter $getMailBoxAdapter)    
+    public function __construct(GetMailBoxAdapter $getMailBoxAdapter)
     {
-        $this->getMailBoxAdapter = $getMailBoxAdapter;        
+        $this->getMailBoxAdapter = $getMailBoxAdapter;
     }
 
     /**
      * Retourne une collection de mails
+     *
+     * @return Mails
      */
-    public function getAllMails()
+    public function getAllMails(): Mails
     {
         return $this->getMailBoxAdapter->getAllMails();
     }

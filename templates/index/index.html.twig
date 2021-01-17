@@ -5,5 +5,23 @@
 {% endblock %}
 
 {% block body %}
-    Index content here
+<div class="container">
+    <h1>Boite de reception</h1>
+    {% for mail in mails %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ mail.getFrom() }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ mail.date().format("d/m/Y") }}</h6>
+            <p class="card-text row">
+                <span class="col-11">{{ mail.getSubject() }}</span>
+                <span class="col-1">
+                    <a href="{{ url("message.show", {"emailId": mail.getId()}) }}">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </span>
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

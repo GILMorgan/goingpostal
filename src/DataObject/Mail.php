@@ -3,7 +3,7 @@
 namespace App\DataObject;
 
 /**
- * Structure d'un mail (recu ou envoyé) 
+ * Structure d'un mail
  */
 class Mail
 {
@@ -28,17 +28,21 @@ class Mail
     private $content;
 
     /**
-     * Setter de la date de reception/redaction
-     * 
-     * @param \DateTime $dateTime
-     * 
-     * @return self
+     * @param \DateTime $date
+     * @param string $subject
+     * @param string $from
+     * @param string $content
      */
-    public function setDate(\DateTime $dateTime): self        
-    {
-        $this->date = $dateTime;
-
-        return $this;
+    public function __construct(
+        \DateTime $date,
+        string $subject,
+        string $from,
+        string $content
+    ) {
+        $this->date = $date;
+        $this->subject = $subject;
+        $this->from = $from;
+        $this->content = $content;
     }
 
     /**
@@ -48,19 +52,6 @@ class Mail
     {
         return $this->date;
     }
-
-    /**
-     * @param string $subject
-     * 
-     * @return self
-     */
-    public function setSubject(string $subject): self
-    {
-        $this->subject = $subject;
-
-        return $this;
-    }
-
     /**
      * @return string
      */
@@ -70,35 +61,11 @@ class Mail
     }
 
     /**
-     * @param string $from
-     *
-     * @return self
-     */
-    public function setFrom(string $from): self
-    {
-        $this->from = $from;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getFrom(): string
     {
         return $this->from;
-    }
-
-    /**
-     * @param string $content
-     *
-     * @return self
-     */
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
     }
 
     /**

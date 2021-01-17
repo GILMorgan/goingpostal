@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Message - 
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ email.getSubject() }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ email.date().format("d/m/Y") }}</h6>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                {{ email.getContent() }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
